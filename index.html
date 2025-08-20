@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>マイクラ施設カタログ</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <h1 class="title">マイクラ施設カタログ</h1>
+      <div class="last-updated" id="last-updated" aria-live="polite"></div>
+    </header>
+
+    <section class="controls" aria-label="操作パネル">
+      <div class="control-row search-row">
+        <input id="search" type="search" placeholder="キーワード検索 (施設名, 説明, タグなど)" aria-label="キーワード検索" />
+      </div>
+      <div class="control-row filter-row">
+        <div class="filter-group">
+          <label for="authorFilter">作成者</label>
+          <select id="authorFilter">
+            <option value="__ALL__">すべて</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="typeFilter">タイプ</label>
+          <select id="typeFilter">
+            <option value="__ALL__">すべて</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="regionFilter">地域</label>
+          <select id="regionFilter">
+            <option value="__ALL__">すべて</option>
+          </select>
+        </div>
+      </div>
+      <div class="control-row view-options-row">
+        <div class="sort-group">
+          <label for="sortSelect">ソート</label>
+          <select id="sortSelect">
+            <option value="nameAsc">施設名 (昇順)</option>
+            <option value="xAsc">x座標 (昇順)</option>
+            <option value="zAsc">z座標 (昇順)</option>
+            <option value="yAsc">y座標 (昇順)</option>
+            <option value="yDesc">y座標 (降順)</option>
+          </select>
+        </div>
+        <label class="toggle" for="netherToggle" title="ネザー座標を表示">
+          <input id="netherToggle" type="checkbox" />
+          <span>ネザー座標</span>
+        </label>
+      </div>
+    </section>
+
+    <div class="tabs" role="tablist" aria-label="表示切替タブ">
+      <button id="tabCards" role="tab" aria-selected="true" aria-controls="cardsContainer">カード</button>
+      <button id="tabTable" role="tab" aria-selected="false" aria-controls="tableWrapper">テーブル</button>
+    </div>
+
+    <section class="status-bar">
+      <div id="counts" aria-live="polite"></div>
+    </section>
+
+    <section id="errorPanel" class="error-panel" hidden>
+      <div class="error-message">
+        データの取得に失敗しました。Google スプレッドシートの公開設定（リンクを知っている全員が閲覧可能）を確認し、ネットワーク接続をご確認ください。
+      </div>
+      <button id="retryBtn" class="retry-btn">再読み込み</button>
+    </section>
+
+    <main>
+      <div id="cardsContainer" class="grid" role="tabpanel" aria-labelledby="tabCards"></div>
+      <div id="tableWrapper" class="table-wrapper" role="tabpanel" aria-labelledby="tabTable" hidden>
+        <table id="dataTable" class="data-table" aria-label="施設一覧テーブル"></table>
+      </div>
+    </main>
+
+    <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
